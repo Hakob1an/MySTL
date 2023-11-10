@@ -15,7 +15,6 @@ public:
    void addBook(const Book& book, int count);
    void issueBook(int book_id, int reader_id);
    void returnBook(int book_id, int reader_id);
-   void changeBookCount(int book_id);
    Book getBook(int index) const;
    Reader getReader(int index) const;
 
