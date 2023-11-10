@@ -10,7 +10,7 @@
 
 void Library::addReader(const Reader& reader) 
 {
-	// Check if the reader ID already exists
+    // Check if the reader ID already exists
     if (std::find_if(m_readers.begin(), m_readers.end(), [&](const Reader& r) { return r.getId() == reader.getId(); }) != m_readers.end()) {
         std::cout << "The reader ID already exists." << std::endl;
         return;
@@ -20,7 +20,7 @@ void Library::addReader(const Reader& reader)
 }
 void Library::addBook(const Book& book, int count) 
 {
-	// Check if the book already exists in the library
+    // Check if the book already exists in the library
     auto book_it = std::find_if(m_books.begin(), m_books.end(), [&](const std::pair<Book, int>& b) { return b.first.getId() == book.getId(); });
     if (book_it != m_books.end()) {
         book_it->second += count;
@@ -30,14 +30,14 @@ void Library::addBook(const Book& book, int count)
 }
 void Library::issueBook(int book_id, int reader_id) 
 {
-	// Find the book in the library
+    // Find the book in the library
     auto book_it = std::find_if(m_books.begin(), m_books.end(), [&](const std::pair<Book, int>& b) { return b.first.getId() == book_id; });
 
     if (book_it != m_books.end() && book_it->first.getAvailability() && book_it->second >= 1) {
     	// Find the reader in the library
         auto reader_it = std::find_if(m_readers.begin(), m_readers.end(), [&](const Reader& r) { return r.getId() == reader_id; });
         if (reader_it != m_readers.end()) {
-        	// Issue the book to the reader
+            // Issue the book to the reader
             reader_it->issueBook(book_id);
             book_it->first.setAvailability(false);
             book_it->second--;  // Decrease the count
@@ -57,7 +57,7 @@ void Library::returnBook(int book_id, int reader_id)
         // Find the reader in the library
         auto reader_it = std::find_if(m_readers.begin(), m_readers.end(), [&](const Reader& r) { return r.getId() == reader_id; });
         if (reader_it != m_readers.end()) {
-        	// Return the book and update its availability
+            // Return the book and update its availability
             reader_it->returnBook(book_id);
             book_it->first.setAvailability(true);
             book_it->second++;  // Increase the count
