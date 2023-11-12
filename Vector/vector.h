@@ -41,6 +41,38 @@ public:
     std::size_t size() const;
     std::size_t capacity() const;
     bool empty() const;
+public:
+    struct iterator
+    {
+        using category = std::forward_iterator_tag;
+        using value_type = T;
+        using pointer = T*;
+        using reference = T&;
+
+        iterator(pointer val) : _ptr{val} {}
+
+        reference operator*() { return *_ptr; }
+        pointer operator->() { return _ptr; }
+        iterator& operator++() 
+        { 
+            ++_ptr; 
+            return *this; 
+        }
+        iterator operator++(int) 
+        { 
+            iterator tmp{*this};
+            ++_ptr;
+            return tmp; 
+        } 
+        friend bool operator==(const iterator& iter1, const iterator& iter2) { return iter1._ptr == iter2._ptr; }
+        friend bool operator!=(const iterator& iter1, const iterator& iter2) { return iter1._ptr != iter2._ptr; }
+
+    private:
+        pointer _ptr;
+    };
+
+    iterator begin();
+    iterator end();
 
 private:
     void moveFrom(vector& other);
