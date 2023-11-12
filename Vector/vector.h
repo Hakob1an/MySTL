@@ -42,6 +42,7 @@ public:
     std::size_t size() const;
     std::size_t capacity() const;
     bool empty() const;
+
 public:
     struct iterator
     {
