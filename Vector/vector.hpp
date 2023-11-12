@@ -23,6 +23,13 @@ vector<T>::vector(std::size_t size, T init_value)
     }
 }
 template<typename T>
+vector<T>::vector(std::initializer_list<T> list)
+{
+    for (auto i : list) {
+        push_back(i);
+    }
+}
+template<typename T>
 vector<T>::vector(const vector<T>& src)
     : _size{src._size}
     , _capacity{src._capacity}
@@ -198,6 +205,16 @@ template<typename T>
 bool vector<T>::empty() const
 {
     return _size == 0;
+}
+template<typename T>
+typename vector<T>::iterator vector<T>::begin()
+{
+    return iterator{_vec};
+}
+template<typename T>
+typename vector<T>::iterator vector<T>::end()
+{
+    return iterator{_vec + _size};
 }
 template<typename T>
 void vector<T>::moveFrom(vector& vec)
