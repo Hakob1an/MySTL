@@ -85,4 +85,6 @@ private:
    T* _vec;
 };
 
+#include "vector.hpp"
+
 #endif //VECTOR_H
