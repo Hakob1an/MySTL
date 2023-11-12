@@ -1,4 +1,4 @@
-#include "vector.hpp"
+#include "vector.h"
 
 int main() {
     try {
@@ -70,6 +70,12 @@ int main() {
             std::cerr << "Caught exception: " << e.what() << std::endl;
         }
 
+        vector<int> intVector2{1, 2, 3, 4};
+        vector<int>::iterator it = intVector2.begin();
+        for (; it != intVector2.end(); ++it) {
+            std::cout << *it << " ";
+        }
+        
     } catch (const std::exception& e) {
         std::cerr << "Caught unexpected exception: " << e.what() << std::endl;
     }
