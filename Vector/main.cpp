@@ -1,5 +1,7 @@
 #include "vector.h"
 
+#include <iostream>
+
 int main() {
     try {
         vector<int> intVector;
