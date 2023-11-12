@@ -13,6 +13,7 @@ public:
     vector();
     vector(std::size_t size);
     vector(std::size_t size, T init_value);
+    vector(std::initializer_list<T> list);
     vector(const vector& src);
     vector(vector&& src) noexcept;
     ~vector();
