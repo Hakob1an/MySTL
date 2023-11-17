@@ -9,6 +9,10 @@ public:
     }
 };
 
+struct B
+{
+    B(int a, double b) {}
+};
 
 int main() {
     unique_ptr<int> up1(10);
@@ -69,6 +73,9 @@ int main() {
 
     auto u = make_unique<double>(3.14);
     std::cout << *u << std::endl;
+
+    auto s1 = make_shared<B>(4, 5.5);
+    auto s2 = make_unique<B>(12, 3.14);
 
     return 0;
 }
