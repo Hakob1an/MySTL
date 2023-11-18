@@ -1,15 +1,13 @@
-#ifndef LINKED_LIST_HPP
-#define LINKED_LIST_HPP
+#ifndef LINKED_LIST_TPP
+#define LINKED_LIST_TPP
 
-#include "list.h"
+#include "list.hpp"
 #include <stdexcept>
 #include <iostream>
 
 template<typename T>
-list<T>::list()
-    : _head{nullptr}
-    , _tail{nullptr}
-    , _size{0}
+list<T>::list() 
+    : _size{0}
 {}
 template<typename T>
 void list<T>::push_back(T value)
@@ -50,14 +48,20 @@ void list<T>::insert(T value, std::size_t ind)
     }
     else if (ind < _size) {
         auto newNode = std::make_shared<list<T>::node>(value);
-        auto current = _head;
-        for (std::size_t i{0}; i < ind - 1; ++i) {
-            current = current->_next;
+        bool isLowerMid = (ind < _size / 2);
+
+        auto current = isLowerMid ? _head : _tail;
+        std::size_t position = isLowerMid ? ind - 1 : _size - ind;
+        
+        for (std::size_t i{0}; i < position; ++i) {
+            current = isLowerMid ? current->_next : current->_prev.lock();
         }
+
         newNode->_next = current->_next;
         newNode->_prev = current;
         current->_next->_prev = newNode;
         current->_next = newNode;
+        
         ++_size;
     }
     else {
@@ -87,7 +91,6 @@ void list<T>::pop_front()
     }
     if (_size == 1) {
         _head = _tail = nullptr;
-        --_size;
     }
     else {
     	_head = _head->_next;
@@ -105,10 +108,15 @@ void list<T>::remove(std::size_t ind)
         pop_back();
     }
     else if (ind < _size) {
-        auto current = _head;
-        for (std::size_t i{0}; i < ind; ++i) {
-            current = current->_next;
+        bool isLowerMid = (ind < _size / 2);
+
+        auto current = isLowerMid ? _head : _tail;
+        std::size_t position = isLowerMid ? ind : _size - ind - 1;
+        
+        for (std::size_t i{0}; i < position; ++i) {
+            current = isLowerMid ? current->_next : current->_prev.lock();
         }
+
         auto prevNode = current->_prev.lock();
         auto nextNode = current->_next;
 
@@ -119,6 +127,7 @@ void list<T>::remove(std::size_t ind)
         if (nextNode) {
             nextNode->_prev = prevNode;
         }
+        
         --_size;
     }
     else {
@@ -144,5 +153,33 @@ template<typename T>
 list<T>::node::node(T value)
 	: _data{value}
 {}
+template<typename T>
+list<T>::node::node(const list<T>::node& src)
+    : _data{src._data}
+{}
+template<typename T>
+list<T>::node::node(list<T>::node&& src) noexcept
+    : _next{std::move(src._next)}
+    , _prev{std::move(src._prev)}
+    , _data{std::move(src._data)}
+{}
+template<typename T>
+typename list<T>::node& list<T>::node::operator=(const list<T>::node& rhs)
+{
+    if (this != &rhs) {
+        _data = rhs._data;
+    }
+    return *this;
+}
+template<typename T>
+typename list<T>::node& list<T>::node::operator=(list<T>::node&& rhs) noexcept
+{
+    if (this != &rhs) {
+        _next = std::move(rhs._next);
+        _prev = std::move(rhs._prev);
+        _data = std::move(rhs._data);
+    }
+    return *this;
+}
 
-#endif //LINKED_LIST_HPP
+#endif //LINKED_LIST_TPP
