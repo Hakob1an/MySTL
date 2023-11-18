@@ -1,7 +1,7 @@
-#ifndef WEAK_PTR_HPP
-#define WEAK_PTR_HPP
+#ifndef WEAK_PTR_TPP
+#define WEAK_PTR_TPP
 
-#include "shared.h"
+#include "weak.hpp"
 
 template<typename T>
 weak_ptr<T>::weak_ptr()
@@ -33,4 +33,4 @@ shared_ptr<T> weak_ptr<T>::lock() const
     }
 }
 
-#endif //WEAK_PTR_HPP
+#endif //WEAK_PTR_TPP
