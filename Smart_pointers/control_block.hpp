@@ -1,6 +1,7 @@
 #ifndef CONTROL_BLOCK_HPP
 #define CONTROL_BLOCK_HPP
 
+#include <utility>
 
 template<typename T>
 class ControlBlock
@@ -8,9 +9,21 @@ class ControlBlock
 public:
     ControlBlock(T* ptr)
         : _ptr{ptr}
-        , _weakRefCount{new int{1}}
+        , _weakRefCount{new int{0}}
         , _sharedRefCount{new int{1}}
     {}
+    ControlBlock(const ControlBlock& src)
+    {
+        _ptr = new T{*(src._ptr)};
+        _weakRefCount = new int{*(src._weakRefCount)};
+        _sharedRefCount = new int{*(src._sharedrefCount)};
+    }
+    ControlBlock(const ControlBlock&& src)
+    {
+        _ptr = std::exchange(src._ptr, nullptr);
+        _weakRefCount = std::exchange(src._weakRefCount, nullptr);
+        _sharedRefCount = std::exchange(src._sharedRefCount, nullptr);
+    }
     void incrementSharedRefCount()
     {
         ++(*_sharedRefCount);
