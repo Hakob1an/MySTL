@@ -1,7 +1,7 @@
-#ifndef UNIQUE_PTR_HPP
-#define UNIQUE_PTR_HPP
+#ifndef UNIQUE_PTR_TPP
+#define UNIQUE_PTR_TPP
 
-#include "unique.h"
+#include "unique.hpp"
 
 template<typename T>
 unique_ptr<T>::unique_ptr(T value)
@@ -39,7 +39,12 @@ void unique_ptr<T>::reset(T* ptr)
     _ptr = ptr;
 }
 template<typename T>
-T* unique_ptr<T>::get() const
+T* unique_ptr<T>::get()
+{
+    return _ptr;
+}
+template<typename T>
+const T* unique_ptr<T>::get() const
 {
     return _ptr;
 }
@@ -49,10 +54,21 @@ T& unique_ptr<T>::operator*()
     return *_ptr;
 }
 template<typename T>
+const T& unique_ptr<T>::operator*() const
+{
+    return *_ptr;
+}
+template<typename T>
 template<typename U, typename>
 T* unique_ptr<T>::operator->()
 {
     return _ptr;
 }
+template<typename T>
+template<typename U, typename>
+const T* unique_ptr<T>::operator->() const
+{
+    return _ptr;
+}
 
-#endif //UNIQUE_PTR_HPP
+#endif //UNIQUE_PTR_TPP
