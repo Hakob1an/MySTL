@@ -1,8 +1,9 @@
-#ifndef MEMORY_H
-#define MEMORY_H
+#ifndef MEMORY_HPP
+#define MEMORY_HPP
 
-#include "shared.h"
-#include "unique.h"
+#include "shared.hpp"
+#include "weak.hpp"
+#include "unique.hpp"
 
 template<typename T, typename... Args>
 shared_ptr<T> make_shared(Args&&... args)
@@ -16,4 +17,4 @@ unique_ptr<T> make_unique(Args&&... args)
     return unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-#endif //MEMORY_H
+#endif //MEMORY_HPP
