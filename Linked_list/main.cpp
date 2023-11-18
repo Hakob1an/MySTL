@@ -10,14 +10,14 @@ int main() {
         myLinkedList.push_back(3);
         myLinkedList.push_front(0);
 		
-		myLinkedList.print();
+	myLinkedList.print();
      
         myLinkedList.insert(4, 2);
-		myLinkedList.print();
+	myLinkedList.print();
             
         myLinkedList.pop_back();
         myLinkedList.pop_front();
-		myLinkedList.print();
+	myLinkedList.print();
 		      
         myLinkedList.remove(1);
 		        
