@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef LINKED_LIST_HPP
+#define LINKED_LIST_HPP
 
 #include <memory>
 #include <cstddef>
@@ -21,20 +21,30 @@ public:
     std::size_t size() const;
     void print() const;
 
-private:
-    struct node 
-    {
-        node(T);
+public:	
+	struct node;
 
-        std::shared_ptr<node> _next;
-        std::weak_ptr<node> _prev;
-        T _data;
-    };
+private:
     std::shared_ptr<node> _head;
     std::shared_ptr<node> _tail;
     std::size_t _size;
 };
 
-#include "list.hpp"
+template<typename T>
+struct list<T>::node
+{
+    node(T);
+    node(const node&);
+    node(node&&) noexcept;
 
-#endif //LINKED_LIST_H
+    node& operator=(const node&);
+    node& operator=(node&&) noexcept;
+
+    std::shared_ptr<node> _next;
+    std::weak_ptr<node> _prev;
+    T _data;
+};
+
+#include "list.tpp"
+
+#endif //LINKED_LIST_HPP
