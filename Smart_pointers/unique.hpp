@@ -1,5 +1,5 @@
-#ifndef UNIQUE_PTR_H
-#define UNIQUE_PTR_H
+#ifndef UNIQUE_PTR_HPP
+#define UNIQUE_PTR_HPP
 
 #include <iostream>
 #include <type_traits>
@@ -19,16 +19,20 @@ public:
 
 public:
     void reset(T* ptr = nullptr);
-    T* get() const;
+    T* get();
+    const T* get() const;
+    T* release();
     T& operator*();
+    const T& operator*() const;
     template<typename U = T, typename = std::enable_if_t<!std::is_fundamental_v<U>>>
     T* operator->();
-    T* release();
+    template<typename U = T, typename = std::enable_if_t<!std::is_fundamental_v<U>>>
+    const T* operator->() const;
 
 private:
     T* _ptr;
 };
 
-#include "unique.hpp"
+#include "unique.tpp"
 
-#endif //UNIQUE_PTR_H
+#endif //UNIQUE_PTR_HPP
