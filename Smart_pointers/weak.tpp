@@ -28,9 +28,8 @@ shared_ptr<T> weak_ptr<T>::lock() const
 {
     if (_controlBlock && _controlBlock->getSharedCount() > 0) {
         return shared_ptr<T>(_controlBlock);
-    } else {
-        return shared_ptr<T>();
     }
+    return shared_ptr<T>();
 }
 
 #endif //WEAK_PTR_TPP
