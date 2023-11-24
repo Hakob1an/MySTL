@@ -150,6 +150,16 @@ void list<T>::print() const
     std::cout << std::endl;
 }
 template<typename T>
+typename list<T>::iterator list<T>::begin() const
+{
+    return iterator{_head};
+}
+template<typename T>
+typename list<T>::iterator list<T>::end() const
+{
+    return iterator{nullptr};
+}
+template<typename T>
 list<T>::node::node(T value)
 	: _data{value}
 {}
@@ -180,6 +190,44 @@ typename list<T>::node& list<T>::node::operator=(list<T>::node&& rhs) noexcept
         _data = std::move(rhs._data);
     }
     return *this;
+}
+template<typename T>
+list<T>::iterator::iterator() 
+    : _current{nullptr}
+{}
+template<typename T>
+list<T>::iterator::iterator(std::shared_ptr<typename list<T>::node> ptr)
+    : _current{ptr}
+{}
+template<typename T>
+typename list<T>::iterator& list<T>::iterator::operator++()
+{
+    if (_current) {
+        _current = _current->_next;
+    }
+    return *this;
+}
+template<typename T>
+typename list<T>::iterator list<T>::iterator::operator++(int)
+{
+    typename list<T>::iterator tmp{*this};
+    ++(*this);
+    return tmp;
+}
+template<typename T>
+T& list<T>::iterator::operator*() const
+{
+    return _current->_data;
+}
+template<typename T>
+bool list<T>::iterator::operator==(const list<T>::iterator& other) const
+{
+    return _current == other._current;
+}
+template<typename T>
+bool list<T>::iterator::operator!=(const list<T>::iterator& other) const
+{
+    return _current != other._current;
 }
 
 #endif //LINKED_LIST_TPP
