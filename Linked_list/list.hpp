@@ -4,7 +4,6 @@
 #include <memory>
 #include <cstddef>
 
-
 template<typename T>
 class list
 {
@@ -23,6 +22,11 @@ public:
 
 public:	
 	struct node;
+    class iterator;
+
+public:
+    iterator begin() const;
+    iterator end() const;
 
 private:
     std::shared_ptr<node> _head;
@@ -43,6 +47,23 @@ struct list<T>::node
     std::shared_ptr<node> _next;
     std::weak_ptr<node> _prev;
     T _data;
+};
+
+template<typename T>
+class list<T>::iterator
+{
+public:
+    iterator();
+    iterator(std::shared_ptr<typename list<T>::node>);
+
+    iterator& operator++();
+    iterator operator++(int);
+    T& operator*() const;
+    bool operator==(const iterator&) const;
+    bool operator!=(const iterator&) const;
+
+private:
+    std::shared_ptr<typename list<T>::node> _current;
 };
 
 #include "list.tpp"
