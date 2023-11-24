@@ -1,4 +1,7 @@
-#include "vector.h"
+#ifndef VECTOR_TPP
+#define VECTOR_TPP
+
+#include "vector.hpp"
 
 template<typename T>
 vector<T>::vector()
@@ -18,14 +21,14 @@ vector<T>::vector(std::size_t size, T init_value)
     , _capacity{size}
     , _vec{new T[size]{}}
 {
-    for (const auto& i : _vec) {
-        i = init_value;
+    for (std::size_t i = 0; i < size; ++i) {
+        _vec[i] = init_value;
     }
 }
 template<typename T>
 vector<T>::vector(std::initializer_list<T> list)
 {
-    for (auto i : list) {
+    for (const auto& i : list) {
         push_back(i);
     }
 }
@@ -33,7 +36,7 @@ template<typename T>
 vector<T>::vector(const vector<T>& src)
     : _size{src._size}
     , _capacity{src._capacity}
-    , _vec{new T[_size]{}}
+    , _vec{new T[_size]}
 {
     for (std::size_t i{0}; i < _size; ++i) {
         _vec[i] = src._vec[i];
@@ -244,3 +247,5 @@ void vector<T>::realloc(std::size_t capacity)
     _vec = tmp;
     _capacity = capacity;
 }
+
+#endif //VECTOR_TPP
