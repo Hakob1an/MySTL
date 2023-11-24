@@ -1,10 +1,11 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 #include <iostream>
 #include <cstddef>
 #include <stdexcept>
 #include <utility>
+#include <initializer_list>
 
 template<typename T>
 class vector
@@ -42,10 +43,11 @@ public:
     std::size_t size() const;
     std::size_t capacity() const;
     bool empty() const;
-
+    
 public:
     struct iterator
     {
+    	using difference_type = std::ptrdiff_t;
         using category = std::forward_iterator_tag;
         using value_type = T;
         using pointer = T*;
@@ -87,6 +89,6 @@ private:
    T* _vec;
 };
 
-#include "vector.hpp"
+#include "vector.tpp"
 
-#endif //VECTOR_H
+#endif //VECTOR_HPP
