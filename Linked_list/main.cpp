@@ -25,6 +25,11 @@ int main() {
         myLinkedList.print();
         std::cout << "Size: " << myLinkedList.size() << std::endl;
 
+	std::cout << "Linked List elements: ";
+        for (auto it = myLinkedList.begin(); it != myLinkedList.end(); ++it) {
+            std::cout << *it << " ";
+        }
+
     } catch (const std::exception& e) {
         std::cerr << "Exception caught: " << e.what() << std::endl;
     }
