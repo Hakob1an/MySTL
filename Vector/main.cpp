@@ -1,5 +1,4 @@
 #include "vector.hpp"
-
 #include <iostream>
 
 int main() {
@@ -31,6 +30,7 @@ int main() {
         vector<int> anotherVector;
         anotherVector.push_back(5);
         anotherVector.push_back(6);
+        
         intVector += anotherVector;
         std::cout << "After += operation: " << intVector << std::endl;
 
@@ -77,10 +77,17 @@ int main() {
         for (; it != intVector2.end(); ++it) {
             std::cout << *it << " ";
         }
+        std::cout << std::endl;
         
+        it = intVector2.begin();
+        for (int i = 0; i < intVector2.size(); ++i) {
+            std::cout << it[i] << " ";
+        }
+        std::cout << std::endl;
+
     } catch (const std::exception& e) {
         std::cerr << "Caught unexpected exception: " << e.what() << std::endl;
     }
-
+    
     return 0;
 }
