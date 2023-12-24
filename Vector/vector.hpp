@@ -57,54 +57,17 @@ public:
 
         reference operator*() { return *_ptr; }
         pointer operator->() { return _ptr; }
-        iterator& operator++() 
-        { 
-            ++_ptr; 
-            return *this; 
-        }
-        iterator operator++(int) 
-        { 
-            iterator tmp{*this};
-            ++_ptr;
-            return tmp; 
-        } 
-        iterator& operator--() 
-        { 
-            --_ptr; 
-            return *this; 
-        }
-        iterator operator--(int) 
-        { 
-            iterator tmp{*this};
-            --_ptr;
-            return tmp; 
-        }
-        iterator operator+(difference_type n) 
-        {
-            iterator(_ptr + n);
-        }
-        iterator operator-(difference_type n) 
-        {
-            iterator(_ptr - n);
-        }
-        difference_type operator-(iterator& ob)
-        {
-            return _ptr - ob._ptr;
-        }
-        iterator operator+=(difference_type n) 
-        {
-            _ptr += n;
-            return *this;
-        }
-        iterator operator-=(difference_type n) 
-        {
-            _ptr -= n;
-            *this;
-        }
-        reference operator[](difference_type n) const
-        {
-            return _ptr[n];
-        }
+        iterator& operator++() { ++_ptr; return *this; }
+        iterator operator++(int) { iterator tmp{*this}; ++_ptr; return tmp; } 
+        iterator& operator--() { --_ptr; return *this; }
+        iterator operator--(int) { iterator tmp{*this}; --_ptr; return tmp; }
+        iterator operator+(difference_type n) { iterator(_ptr + n); }
+        iterator operator-(difference_type n) { iterator(_ptr - n); }
+        difference_type operator-(iterator& ob){ return _ptr - ob._ptr; }
+        iterator operator+=(difference_type n) { _ptr += n; return *this; }
+        iterator operator-=(difference_type n) { _ptr -= n; *this; }
+        reference operator[](difference_type n) { return _ptr[n]; }
+
         friend bool operator==(const iterator& iter1, const iterator& iter2) { return iter1._ptr == iter2._ptr; }
         friend bool operator!=(const iterator& iter1, const iterator& iter2) { return iter1._ptr != iter2._ptr; }
         friend bool operator>(const iterator& iter1, const iterator& iter2) { return iter1._ptr > iter2._ptr; }
@@ -115,7 +78,6 @@ public:
     private:
         pointer _ptr;
     };
-
     iterator begin();
     iterator end();
 
