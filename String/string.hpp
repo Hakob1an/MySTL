@@ -10,7 +10,7 @@
 
 struct string_iterator
 {
-	using value_type = char;
+    using value_type = char;
     using size_type = std::size_t;
     using difference_type = std::ptrdiff_t;
     using reference = value_type&;
@@ -18,10 +18,10 @@ struct string_iterator
     using const_pointer = const pointer;
     using category = std::random_access_iterator_tag;
 	
-	string_iterator(pointer p) : _ptr{p} 
-	{}
+    string_iterator(pointer p) : _ptr{p} 
+    {}
 	
-	reference operator*() { return *_ptr; }
+    reference operator*() { return *_ptr; }
     pointer operator->() { return _ptr; }
     string_iterator& operator++() { ++_ptr; return *this; }
     string_iterator operator++(int) { string_iterator tmp{*this}; ++_ptr; return tmp; } 
@@ -41,7 +41,7 @@ struct string_iterator
     friend bool operator<(const string_iterator& iter1, const string_iterator& iter2) { return iter1._ptr < iter2._ptr; }
     friend bool operator<=(const string_iterator& iter1, const string_iterator& iter2) { return iter1._ptr <= iter2._ptr; }
 	
-	pointer _ptr;
+    pointer _ptr;
 };
 
 class string
