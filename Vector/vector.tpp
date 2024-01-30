@@ -25,9 +25,9 @@ vector<T>::vector(size_type size, value_type init_value)
 }
 template<typename T>
 constexpr vector<T>::vector(std::initializer_list<T> list)
-	: _size{list.size()}
-	, _capacity{_size}
-	, _vec{new T[_size]}
+    : _size{list.size()}
+    , _capacity{_size}
+    , _vec{new T[_size]}
 {
     auto it = list.begin();
     for (size_type i = 0; i < _size; ++i) {
