@@ -74,7 +74,7 @@ hash_set<Key>& hash_set<Key>::operator=(const hash_set& rhs)
 template<typename Key>
 hash_set<Key>& hash_set<Key>::operator=(hash_set&& rhs) noexcept
 {
-    if (this != rhs) {
+    if (this != &rhs) {
         clear();
         for (size_type i = 0; i < _bucket_size; ++i) {
             _bucket[i] = rhs._bucket[i];
